@@ -182,7 +182,7 @@ a{color:inherit}
 .marquee-item{display:flex;align-items:center;gap:12px;white-space:nowrap;font-weight:700;font-size:14.5px;color:var(--muted)}
 .marquee-item .sep{color:var(--tg);font-size:11px}
 /* ── секции общие ────────────────────────────────── */
-.section{padding:110px 0}
+.section{padding:110px 0;scroll-margin-top:80px}
 .sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:1.4px;
   text-transform:uppercase;color:#0E68A8;margin-bottom:16px}
 .sec-tag::before{content:'';width:26px;height:2px;background:var(--grad);border-radius:2px}
@@ -268,6 +268,26 @@ a{color:inherit}
   font-size:15px;color:var(--muted)}
 .steps-note b{color:var(--text)}
 
+/* ── кому подходит ──────────────────────────────── */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.who-card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--r-lg);padding:28px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .3s ease,border-color .3s ease}
+.who-card:hover{transform:translateY(-4px);border-color:rgba(52,211,153,.45)}
+.who-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--green),transparent);opacity:.55}
+.who-ico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:23px;margin-bottom:16px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3)}
+.who-card h3{font-size:17.5px;font-weight:700;margin-bottom:14px;line-height:1.4;min-height:49px}
+.who-pain{font-size:14px;color:var(--muted);margin-bottom:12px}
+.who-fix{font-size:14px;color:var(--muted)}
+.who-lbl{display:block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.who-pain .who-lbl{color:var(--red)}
+.who-fix .who-lbl{color:var(--green)}
+.who-note{margin-top:24px;padding:22px 28px;border-radius:var(--r);text-align:center;
+  background:linear-gradient(90deg,rgba(52,211,153,.1),rgba(42,171,238,.1));border:1px solid rgba(52,211,153,.3);
+  font-size:15px;color:var(--muted)}
+.who-note b{color:var(--text)}
+
 /* ── тарифы ──────────────────────────────────────── */
 .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
 .price{background:var(--card);border:1px solid var(--stroke);border-radius:var(--r-lg);padding:34px 30px;
@@ -339,6 +359,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
   .phone-zone{order:2}
   .hero{padding:120px 0 70px}
   .bento{grid-template-columns:repeat(2,1fr)}
+  .who-grid{grid-template-columns:repeat(2,1fr)}
   .b-card.wide{grid-column:span 2}
   .price-grid{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto}
   .hot-badge{left:24px;transform:none}
@@ -348,7 +369,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
   .nav-cta .btn{display:none}
   .burger{display:block}
   .lang-btn{padding:5px 10px;font-size:11px}
-  .pain-grid,.compare,.bento,.steps{grid-template-columns:1fr}
+  .pain-grid,.compare,.bento,.steps,.who-grid{grid-template-columns:1fr}
   .price-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
   .b-card.wide{grid-column:span 1}
   .section{padding:70px 0}
@@ -377,6 +398,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       <a href="#pain" data-i18n="nav_pain">Проблема</a>
       <a href="#solution" data-i18n="nav_sol">Решение</a>
       <a href="#features" data-i18n="nav_feat">Возможности</a>
+      <a href="#who" data-i18n="nav_who">Кому подходит</a>
       <a href="#how" data-i18n="nav_how">Запуск</a>
       <a href="#pricing" data-i18n="nav_pr">Тарифы</a>
       <a href="#faq" data-i18n="nav_faq">FAQ</a>
@@ -393,6 +415,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
     <a href="#pain" data-i18n="nav_pain">Проблема</a>
     <a href="#solution" data-i18n="nav_sol">Решение</a>
     <a href="#features" data-i18n="nav_feat">Возможности</a>
+    <a href="#who" data-i18n="nav_who">Кому подходит</a>
     <a href="#how" data-i18n="nav_how">Запуск</a>
     <a href="#pricing" data-i18n="nav_pr">Тарифы</a>
     <a href="#faq" data-i18n="nav_faq">FAQ</a>
@@ -408,7 +431,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       <h1 data-i18n="hero_h1">Лучшие посты канала <span class="grad-text">никто не видит</span></h1>
       <p class="hero-sub" data-i18n="hero_sub">«Оглавление» превращает Telegram-канал в <b>каталог с поиском</b>: кнопка прямо в шапке, подписчик находит нужное за <b>5 секунд</b> вместо 10 минут прокрутки — а старый контент снова продаёт.</p>
       <div class="hero-actions">
-        <a href="https://t.me/newsmydemobot/toc" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-i18n="hero_demo" data-demo-link>👁 Открыть живое демо</a>
+        <a href="https://t.me/newsmydemobot/toc" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-i18n="hero_demo" data-demo-link>📲 Открыть живое демо</a>
         <a href="https://t.me/oglavlenie_shop_bot" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="hero_order">🚀 Заказать в боте</a>
       </div>
       <div class="hero-stats">
@@ -598,6 +621,56 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
   </div>
 </section>
 
+<!-- ═══ КОМУ ПОДХОДИТ ═══ -->
+<section class="section" id="who" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-tag" data-i18n="who_tag">Кому подходит</div>
+      <h2 class="sec-title" data-i18n="who_title">Разные каналы — разная боль</h2>
+      <p class="sec-sub" data-i18n="who_sub">Продающему каналу нужна витрина, писателю — порядок глав, эксперту — программа курса. Найдите себя: под каждой задачей «Оглавление» работает по-своему.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="who-ico">🛍</div>
+        <h3 data-i18n="w1h">Продающие каналы и магазины</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w1p">Товары, прайс и условия теряются в ленте: клиент видит последний пост — и не догадывается, что за плечами сотни позиций. Каждый «сколько стоит?» приходится отрабатывать вручную в личке.</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w1f">Каталог становится витриной: рубрики по категориям, поиск по названию, товар в два тапа. Прайс больше не пересылают — его открывают.</span></p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-ico">✍️</div>
+        <h3 data-i18n="w2h">Блогеры и авторские каналы</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w2p">Вы пишете годами, а новый подписчик видит последние десять постов. Лучшие тексты, за которые вы когда-то получали охваты, навсегда спрятаны в глубине ленты.</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w2f">Лучшее всегда на виду: подборка рубрик становится входом для новых подписчиков. Старые тексты снова читают — и подписываются уже на вас.</span></p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-ico">📚</div>
+        <h3 data-i18n="w3h">Писатели и авторы серий</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w3p">Роман по главам, цикл статей, лонгрид из шести частей — читатель теряется между частями и бросает на середине. Telegram не умеет показывать «глава 1 из 12».</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w3f">У каждой серии своё оглавление: главы в порядке чтения, навигация по месяцам и алфавиту. Читатель открывает следующую главу, а не ищет её по ленте.</span></p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-ico">🎓</div>
+        <h3 data-i18n="w4h">Обучение и эксперты</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w4p">Уроки, разборы и мастер-классы выходят неделями — и рассыпаются по ленте. Ученик не видит программу целиком и не доходит до результата, ради которого приходил.</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w4f">Каталог превращается в программу: модули в порядке прохождения, материалы по форматам. Ученик видит весь путь — и доходит до конца.</span></p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-ico">💼</div>
+        <h3 data-i18n="w5h">Услуги и фриланс</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w5p">Кейсы, отзывы, этапы работы и цены — всё в одном закрепе, который давно не переписывался. Каждое «а покажите ваши работы?» — это экскурсия вручную.</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w5f">Портфолио всегда под рукой: кейсы по рубрикам, отзывы и форматы отдельно. Клиент сам находит нужное ещё до первого сообщения вам.</span></p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-ico">🧭</div>
+        <h3 data-i18n="w6h">Подборки и медиа</h3>
+        <p class="who-pain"><span class="who-lbl" data-i18n="who_l1">Боль</span><span data-i18n="w6p">Сотни ссылок, карточек и постов-ресурсов. Без поиска канал — склад: заходят по наводке, не находят нужного и уходят, чтобы не возвращаться.</span></p>
+        <p class="who-fix"><span class="who-lbl" data-i18n="who_l2">С оглавлением</span><span data-i18n="w6f">Канал становится справочником: алфавит, форматы, мгновенный поиск. Подписчик возвращается сам — за нужным здесь и сейчас.</span></p>
+      </div>
+    </div>
+    <div class="who-note reveal" data-i18n="who_note">Не нашли себя в списке? Рубрики, месяцы и форматы каталог определяет из вашего контента автоматически — он подстроится и под нишу, которой здесь нет.</div>
+  </div>
+</section>
+
 <!-- ═══ КАК ЗАПУСТИТЬ ═══ -->
 <section class="section" id="how" style="padding-top:0">
   <div class="wrap">
@@ -743,7 +816,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       <p data-i18n="fin_p">Запустите «Оглавление» сегодня — кнопка в шапке уже завтра.</p>
       <div class="final-actions">
         <a href="https://t.me/oglavlenie_shop_bot" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="fin_b1">🚀 Запустить в боте</a>
-        <a href="https://t.me/newsmydemobot/toc" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-i18n="fin_b2" data-demo-link>👁 Посмотреть демо</a>
+        <a href="https://t.me/newsmydemobot/toc" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-i18n="fin_b2" data-demo-link>▶️ Посмотреть демо</a>
       </div>
       <div class="demo-mini" data-i18n="fin_demo">Демо на английском: <a href="https://t.me/newsmydemobot/toc_en" target="_blank" rel="noopener">@newsmydemobot/toc_en</a> · вопросы — ИИ-консультанту в боте, он на связи 24/7</div>
     </div>
@@ -773,6 +846,7 @@ const STR=[
 ["nav_pain",`Проблема`,`The problem`],
 ["nav_sol",`Решение`,`The solution`],
 ["nav_feat",`Возможности`,`Features`],
+["nav_who",`Кому подходит`,`Who it's for`],
 ["nav_how",`Запуск`,`Launch`],
 ["nav_pr",`Тарифы`,`Pricing`],
 ["nav_faq",`FAQ`,`FAQ`],
@@ -780,7 +854,7 @@ const STR=[
 ["hero_pill",`TELEGRAM MINI APP · БЕЗ СЕРВЕРОВ И ПЛАТНОГО ХОСТИНГА`,`TELEGRAM MINI APP · NO SERVERS, NO HOSTING BILLS`],
 ["hero_h1",`Лучшие посты канала <span class="grad-text">никто не видит</span>`,`Nobody sees <span class="grad-text">your channel's best posts</span>`],
 ["hero_sub",`«Оглавление» превращает Telegram-канал в <b>каталог с поиском</b>: кнопка прямо в шапке, подписчик находит нужное за <b>5 секунд</b> вместо 10 минут прокрутки — а старый контент снова продаёт.`,`Oglavlenie turns a Telegram channel into a <b>searchable catalog</b>: a button right in the header, subscribers find what they need in <b>5 seconds</b> instead of 10 minutes of scrolling — and old content starts selling again.`],
-["hero_demo",`👁 Открыть живое демо`,`👁 Open the live demo`],
+["hero_demo",`📲 Открыть живое демо`,`📲 Open the live demo`],
 ["hero_order",`🚀 Заказать в боте`,`🚀 Get it in the bot`],
 ["st1n",`15 мин`,`15 min`],
 ["st1c",`от экспорта до кнопки в шапке`,`from export to a header button`],
@@ -892,6 +966,30 @@ const STR=[
 ["hs3p",`Закрепите кнопку одним нажатием — готово. Канал стал каталогом, архив снова работает.`,`Pin the button with one tap — done. The channel is now a catalog, and the archive works again.`],
 ["hs3t",`⏱ 1 минута`,`⏱ 1 minute`],
 ["how_note",`Не хотите возиться с настройкой? <b>«Установим вместе»</b> (⭐ 6 900): помощник берёт на себя все удалённые шаги — вам остаются только личные. <b>«Премиум»</b> (⭐ 9 500): вы вообще ничего не делаете — установлю лично, от ссылки на канал до готовой кнопки.`,`Don't want the hassle? <b>“Done Together”</b> (⭐ 6,900): the assistant takes care of every remote step — you keep just the personal ones. <b>“Premium”</b> (⭐ 9,500): you do nothing at all — I install it personally, from a channel link to a working button.`],
+["who_tag",`Кому подходит`,`Who it's for`],
+["who_title",`Разные каналы — разная боль`,`Different channels — different pains`],
+["who_sub",`Продающему каналу нужна витрина, писателю — порядок глав, эксперту — программа курса. Найдите себя: под каждой задачей «Оглавление» работает по-своему.`,`A shop needs a storefront, a writer — chapter order, an expert — a course plan. Find yourself: Oglavlenie works its own way for each of these jobs.`],
+["who_l1",`Боль`,`The pain`],
+["who_l2",`С оглавлением`,`With the catalog`],
+["w1h",`Продающие каналы и магазины`,`Selling channels & shops`],
+["w1p",`Товары, прайс и условия теряются в ленте: клиент видит последний пост — и не догадывается, что за плечами сотни позиций. Каждый «сколько стоит?» приходится отрабатывать вручную в личке.`,`Products, prices and terms drown in the feed: a visitor sees the latest post and never guesses there are hundreds of items behind it. Every “how much?” has to be handled by hand in DMs.`],
+["w1f",`Каталог становится витриной: рубрики по категориям, поиск по названию, товар в два тапа. Прайс больше не пересылают — его открывают.`,`The catalog becomes a storefront: topics by category, search by name, any item two taps away. Nobody forwards the price list anymore — they simply open it.`],
+["w2h",`Блогеры и авторские каналы`,`Bloggers & personal brands`],
+["w2p",`Вы пишете годами, а новый подписчик видит последние десять постов. Лучшие тексты, за которые вы когда-то получали охваты, навсегда спрятаны в глубине ленты.`,`You've been writing for years, yet a new follower sees the last ten posts. Your best texts — the ones that once brought reach — are buried deep in the feed forever.`],
+["w2f",`Лучшее всегда на виду: подборка рубрик становится входом для новых подписчиков. Старые тексты снова читают — и подписываются уже на вас.`,`The best work stays in plain sight: the topic list becomes the entry point for new followers. Old posts get read again — and people subscribe to you.`],
+["w3h",`Писатели и авторы серий`,`Writers & serial authors`],
+["w3p",`Роман по главам, цикл статей, лонгрид из шести частей — читатель теряется между частями и бросает на середине. Telegram не умеет показывать «глава 1 из 12».`,`A novel chapter by chapter, an article series, a six-part longread — readers get lost between parts and quit halfway. Telegram can't show “chapter 1 of 12”.`],
+["w3f",`У каждой серии своё оглавление: главы в порядке чтения, навигация по месяцам и алфавиту. Читатель открывает следующую главу, а не ищет её по ленте.`,`Every series gets a real table of contents: chapters in reading order, navigation by months and A–Z. The reader opens the next chapter instead of hunting through the feed.`],
+["w4h",`Обучение и эксперты`,`Educators & experts`],
+["w4p",`Уроки, разборы и мастер-классы выходят неделями — и рассыпаются по ленте. Ученик не видит программу целиком и не доходит до результата, ради которого приходил.`,`Lessons, breakdowns and master classes come out over weeks — and scatter across the feed. Students never see the whole program and don't reach the result they came for.`],
+["w4f",`Каталог превращается в программу: модули в порядке прохождения, материалы по форматам. Ученик видит весь путь — и доходит до конца.`,`The catalog becomes the curriculum: modules in learning order, materials by format. Students see the entire path — and finish it.`],
+["w5h",`Услуги и фриланс`,`Services & freelancers`],
+["w5p",`Кейсы, отзывы, этапы работы и цены — всё в одном закрепе, который давно не переписывался. Каждое «а покажите ваши работы?» — это экскурсия вручную.`,`Cases, reviews, process and prices — all squeezed into one pinned post last updated ages ago. Every “show me your work?” means a personal guided tour.`],
+["w5f",`Портфолио всегда под рукой: кейсы по рубрикам, отзывы и форматы отдельно. Клиент сам находит нужное ещё до первого сообщения вам.`,`A portfolio that's always at hand: cases by topic, reviews and formats in their own sections. Clients find what they need before even messaging you.`],
+["w6h",`Подборки и медиа`,`Curated lists & media`],
+["w6p",`Сотни ссылок, карточек и постов-ресурсов. Без поиска канал — склад: заходят по наводке, не находят нужного и уходят, чтобы не возвращаться.`,`Hundreds of links, cards and resource posts. Without search the channel is a warehouse: people come on a tip, find nothing and leave for good.`],
+["w6f",`Канал становится справочником: алфавит, форматы, мгновенный поиск. Подписчик возвращается сам — за нужным здесь и сейчас.`,`The channel becomes a reference: A–Z, formats, instant search. Subscribers come back on their own — for exactly what they need right now.`],
+["who_note",`Не нашли себя в списке? Рубрики, месяцы и форматы каталог определяет из вашего контента автоматически — он подстроится и под нишу, которой здесь нет.`,`Don't see yourself in the list? The catalog detects topics, months and formats from your content automatically — it will adapt to a niche that isn't even on this page.`],
 ["pr_tag",`Тарифы`,`Pricing`],
 ["pr_title",`Выберите свой вариант запуска`,`Choose how you launch`],
 ["pr_sub",`Лицензия на 1 канал · обновления v1.x бесплатно · 14 дней на возврат`,`License for 1 channel · v1.x updates free · 14-day refund`],
@@ -950,7 +1048,7 @@ const STR=[
 ["fin_h",`Верните архиву силу продаж`,`Give your archive its selling power back`],
 ["fin_p",`Запустите «Оглавление» сегодня — кнопка в шапке уже завтра.`,`Launch Oglavlenie today — the button in your header is there tomorrow.`],
 ["fin_b1",`🚀 Запустить в боте`,`🚀 Launch in the bot`],
-["fin_b2",`👁 Посмотреть демо`,`👁 See the demo`],
+["fin_b2",`▶️ Посмотреть демо`,`▶️ See the demo`],
 ["fin_demo",`Демо на английском: <a href="https://t.me/newsmydemobot/toc_en" target="_blank" rel="noopener">@newsmydemobot/toc_en</a> · вопросы — ИИ-консультанту в боте, он на связи 24/7`,`Live demo: <a href="https://t.me/newsmydemobot/toc_en" target="_blank" rel="noopener">@newsmydemobot/toc_en</a> · questions — the AI consultant in the bot, online 24/7`],
 ["foot_bot",`Бот`,`Bot`],
 ["foot_dr",`Демо RU`,`Demo RU`],
