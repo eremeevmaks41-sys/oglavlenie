@@ -382,6 +382,14 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
   .stat{border-right:none;border-bottom:1px solid var(--stroke)}
   .stat:last-child{border-bottom:none}
 }
+/* ── видео-обзор (вертикальные Shorts, Task 181) ── */
+.video-zone{display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:34px}
+.short-frame{position:relative;width:min(330px,86vw);aspect-ratio:9/16;border-radius:20px;overflow:hidden;
+  background:#0B1420;box-shadow:0 24px 60px -24px rgba(13,42,80,.45),0 0 0 1px var(--stroke);
+  transition:transform .25s ease,box-shadow .25s ease}
+.short-frame:hover{transform:translateY(-4px);box-shadow:0 30px 70px -24px rgba(13,42,80,.55),0 0 0 1px var(--stroke2)}
+.short-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-note{font-size:13px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -566,6 +574,27 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
           <div class="cmp-step"><span class="cmp-num">4</span><div><b data-i18n="cg4b">Покупает, записывается, подписывается</b><span data-i18n="cg4s">архив снова работает на вас</span></div></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ ВИДЕО-ОБЗОР (Shorts, Task 181) ═══ -->
+<section class="section" id="video" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal sec-center">
+      <div class="sec-tag" data-i18n="vid_tag">Видео</div>
+      <h2 class="sec-title" data-i18n="vid_title">Вся суть — в одном коротком видео</h2>
+      <p class="sec-sub" data-i18n="vid_sub">Вертикальный обзор: как каталог выглядит и работает прямо в Telegram.</p>
+    </div>
+    <div class="video-zone reveal">
+      <div class="short-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/N7CpbRabP5Q?rel=0"
+                title="Оглавление — видео-обзор" loading="lazy" allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                data-video-link></iframe>
+      </div>
+      <a href="https://t.me/newsmydemobot/toc" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="vid_cta" data-demo-link>📲 Открыть живое демо</a>
+      <div class="video-note" data-i18n="vid_note">Видео на русском — переключите язык страницы, чтобы посмотреть английскую версию</div>
     </div>
   </div>
 </section>
@@ -1050,6 +1079,11 @@ const STR=[
 ["fin_b1",`🚀 Запустить в боте`,`🚀 Launch in the bot`],
 ["fin_b2",`▶️ Посмотреть демо`,`▶️ See the demo`],
 ["fin_demo",`Демо на английском: <a href="https://t.me/newsmydemobot/toc_en" target="_blank" rel="noopener">@newsmydemobot/toc_en</a> · вопросы — ИИ-консультанту в боте, он на связи 24/7`,`Live demo: <a href="https://t.me/newsmydemobot/toc_en" target="_blank" rel="noopener">@newsmydemobot/toc_en</a> · questions — the AI consultant in the bot, online 24/7`],
+["vid_tag",`Видео`,`Video`],
+["vid_title",`Вся суть — в одном коротком видео`,`The whole idea in one short video`],
+["vid_sub",`Вертикальный обзор: как каталог выглядит и работает прямо в Telegram`,`A vertical walkthrough: what the catalog looks and feels like inside Telegram`],
+["vid_cta",`📲 Открыть живое демо`,`📲 Open the live demo`],
+["vid_note",`Сейчас показывается видео на русском — переключите язык страницы сверху, чтобы посмотреть английскую версию`,`This is the English video — switch the page language at the top to watch the Russian version`],
 ["foot_bot",`Бот`,`Bot`],
 ["foot_dr",`Демо RU`,`Demo RU`],
 ["foot_de",`Демо EN`,`Demo EN`],
@@ -1089,6 +1123,9 @@ function applyLang(l){
   });
   document.querySelectorAll('[data-demo-link]').forEach(a=>{
     a.href=(l==='en')?'https://t.me/newsmydemobot/toc_en':'https://t.me/newsmydemobot/toc';
+  });
+  document.querySelectorAll('[data-video-link]').forEach(f=>{   // Task 181: шортсы RU/EN
+    f.src='https://www.youtube-nocookie.com/embed/'+((l==='en')?'q9ZUDx5lxlA':'N7CpbRabP5Q')+'?rel=0';
   });
   document.querySelectorAll('.lang-btn').forEach(b=>{
     const on=b.dataset.lang===l;
