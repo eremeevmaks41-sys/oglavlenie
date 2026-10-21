@@ -1175,5 +1175,38 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.
   t.innerHTML+=t.innerHTML;
 })();
 </script>
+<!-- Attribution: сохраняем источник трафика (fb/ig/yt) во все deeplink-CTA бота + GA4-событие на клик -->
+<script>
+(function(){
+  var WHITELIST=['fb','ig','yt','site'];
+  var REF_MAP=[[/\bfacebook\.|fb\.me|fb\.watch/,'fb'],[/instagram\./,'ig'],[/youtube\.|youtu\.be/,'yt']];
+  function norm(v){v=(v||'').toLowerCase().trim();return WHITELIST.indexOf(v)>=0?v:'';}
+  function detect(){
+    var f=norm(new URLSearchParams(location.search).get('from'));
+    if(f)return f;
+    var ref=document.referrer||'';
+    for(var i=0;i<REF_MAP.length;i++){if(REF_MAP[i][0].test(ref))return REF_MAP[i][1];}
+    try{f=norm(sessionStorage.getItem('ogl_src'));}catch(e){}
+    return f||'site';
+  }
+  var SRC=detect();
+  try{sessionStorage.setItem('ogl_src',SRC);}catch(e){}
+  function rewrite(){
+    document.querySelectorAll('a[href*="start="]').forEach(function(a){
+      var h=a.getAttribute('href')||'';
+      if(h.indexOf('oglavlenie_shop_bot')<0)return;
+      a.setAttribute('href',h.replace(/start=[A-Za-z0-9_\-]*/,'start='+SRC));
+    });
+  }
+  rewrite();
+  document.addEventListener('click',function(e){
+    var t=e.target,a=t&&t.closest?t.closest('a[href*="start="]'):null;
+    if(!a||(a.getAttribute('href')||'').indexOf('oglavlenie_shop_bot')<0)return;
+    a.setAttribute('href',a.getAttribute('href').replace(/start=[A-Za-z0-9_\-]*/,'start='+SRC));
+    if(typeof gtag==='function')gtag('event','cta_click',{source:SRC});
+  },true);
+  new MutationObserver(rewrite).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
 </body>
 </html>
