@@ -311,6 +311,8 @@ a{color:inherit}
 .price-val{font-family:'Unbounded',sans-serif;font-size:34px;font-weight:800;line-height:1;margin-bottom:8px}
 .price-val small{font-size:15px;font-weight:600;color:var(--muted)}
 .price-per{font-size:13px;color:var(--dim);font-weight:700;margin-bottom:24px;min-height:42px}
+.size-badge{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.3px;color:#0A6BA8;background:rgba(42,171,238,.10);border:1px solid rgba(42,171,238,.38);padding:6px 13px;border-radius:100px;margin-bottom:14px;max-width:100%}
+.year-badge{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:800;color:#8A6300;background:linear-gradient(90deg,rgba(255,184,0,.16),rgba(255,184,0,.05));border:1px dashed rgba(232,158,0,.55);padding:11px 14px;border-radius:14px;margin-bottom:22px}
 .price-feats{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:30px;flex:1}
 .price-feats li{display:flex;gap:10px;font-size:14px;color:var(--muted);align-items:flex-start}
 .price-feats li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0}
@@ -753,6 +755,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
     <div class="price-grid">
       <div class="price reveal">
         <h3 class="price-name" data-i18n="pr1n">📦 Самостоятельно</h3>
+        <div class="size-badge" data-i18n="pr1s">📏 Каналы до 20 тыс. подписчиков</div>
         <div class="price-val" data-i18n="pr1v">⭐ 3 150</div>
         <div class="price-per" data-i18n="pr1p">разовый платёж · Telegram Stars</div>
         <ul class="price-feats">
@@ -768,13 +771,15 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       <div class="price hot reveal">
         <div class="hot-badge" data-i18n="pr_hot">🔥 Самый простой старт</div>
         <h3 class="price-name" data-i18n="pr2n">♾ Подписка</h3>
+        <div class="size-badge" data-i18n="pr2s">♾ Любой размер канала</div>
         <div class="price-val" data-i18n="pr2v">⭐ 590 <small>/ мес</small></div>
         <div class="price-per" data-i18n="pr2p">первые 7 дней — бесплатно</div>
+        <div class="year-badge" data-i18n="pr2y">📅 Год сразу — ⭐ 5 900 · 2 месяца в подарок</div>
         <ul class="price-feats">
           <li data-i18n="pr2f1">Ноль настроек — бот сам собирает каталог из вашего канала</li>
           <li data-i18n="pr2f2">Личный кабинет и история покупок</li>
           <li data-i18n="pr2f3">Обновления и поддержка сразу</li>
-          <li data-i18n="pr2f7">Год сразу: ⭐ 5 900 — 2 месяца в подарок</li>
+          <li data-i18n="pr2f8">Пост о боте в вашем канале — ваша реферальная ссылка приносит бесплатные месяцы</li>
           <li data-i18n="pr2f4">Отмена в любой момент</li>
           <li data-i18n="pr2f5">Оплата: Stars, картой/СБП или TON</li>
           <li data-i18n="pr2f6">Без привязки карты</li>
@@ -783,6 +788,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       </div>
       <div class="price reveal">
         <h3 class="price-name" data-i18n="pr3n">🤝 Установим вместе</h3>
+        <div class="size-badge" data-i18n="pr3s">📏 Каналы 20–100 тыс. подписчиков</div>
         <div class="price-val" data-i18n="pr3v">⭐ 6 900</div>
         <div class="price-per" data-i18n="pr3p">разовый платёж · делаем при вас</div>
         <ul class="price-feats">
@@ -796,6 +802,7 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
       </div>
       <div class="price reveal">
         <h3 class="price-name" data-i18n="pr4n">👑 Премиум «Установлю за тебя»</h3>
+        <div class="size-badge" data-i18n="pr4s">📏 Каналы 100–300 тыс. подписчиков</div>
         <div class="price-val" data-i18n="pr4v">⭐ 9 500</div>
         <div class="price-per" data-i18n="pr4p">разовый платёж · без вашего участия</div>
         <ul class="price-feats">
@@ -1037,6 +1044,7 @@ const STR=[
 ["pr1n",`📦 Самостоятельно`,`📦 DIY Setup`],
 ["pr1v",`⭐ 3 150`,`⭐ 3,150`],
 ["pr1p",`разовый платёж · Telegram Stars`,`one-time payment · Telegram Stars`],
+["pr1s",`📏 Каналы до 20 тыс. подписчиков`,`📏 Channels up to 20K subscribers`],
 ["pr1f1",`Архив с исходным кодом`,`Source code archive`],
 ["pr1f2",`PDF-руководство (14 страниц)`,`PDF guide (14 pages)`],
 ["pr1f3",`GitHub Actions-скрипты сборки`,`GitHub Actions build scripts`],
@@ -1048,10 +1056,12 @@ const STR=[
 ["pr2n",`♾ Подписка`,`♾ Subscription`],
 ["pr2v",`⭐ 590 <small>/ мес</small>`,`⭐ 590 <small>/ mo</small>`],
 ["pr2p",`первые 7 дней — бесплатно`,`free for the first 7 days`],
+["pr2s",`♾ Любой размер канала`,`♾ Any channel size`],
 ["pr2f1",`Ноль настроек — бот сам собирает каталог из вашего канала`,`Zero setup — the bot builds the catalog from your channel for you`],
 ["pr2f2",`Личный кабинет и история покупок`,`Personal account and purchase history`],
 ["pr2f3",`Обновления и поддержка сразу`,`Updates and support right away`],
-["pr2f7",`Год сразу: ⭐ 5 900 — 2 месяца в подарок`,`A year upfront: ⭐ 5,900 — 2 months free`],
+["pr2y",`📅 Год сразу — ⭐ 5 900 · 2 месяца в подарок`,`📅 A year upfront — ⭐ 5,900 · 2 months free`],
+["pr2f8",`Пост о боте в вашем канале — ваша реферальная ссылка приносит бесплатные месяцы`,`A post about the bot in your channel — your referral link earns free months`],
 ["pr2f4",`Отмена в любой момент`,`Cancel anytime`],
 ["pr2f5",`Оплата: Stars, картой/СБП или TON`,`Pay in Stars, by card or TON`],
 ["pr2f6",`Без привязки карты`,`No card required`],
@@ -1059,6 +1069,7 @@ const STR=[
 ["pr3n",`🤝 Установим вместе`,`🤝 Done Together`],
 ["pr3v",`⭐ 6 900`,`⭐ 6,900`],
 ["pr3p",`разовый платёж · делаем при вас`,`one-time payment · we do it with you`],
+["pr3s",`📏 Каналы 20–100 тыс. подписчиков`,`📏 Channels 20K–100K subscribers`],
 ["pr3f1",`Всё из тарифа «Самостоятельно»`,`Everything in “DIY Setup”`],
 ["pr3f2",`Установка при вас за ~20 минут`,`Set up together in ~20 minutes`],
 ["pr3f3",`Консультант до готовой кнопки`,`A consultant until the button works`],
@@ -1067,6 +1078,7 @@ const STR=[
 ["pr4n",`👑 Премиум «Установлю за тебя»`,`👑 Premium “Done for You”`],
 ["pr4v",`⭐ 9 500`,`⭐ 9,500`],
 ["pr4p",`разовый платёж · без вашего участия`,`one-time payment · zero effort on your side`],
+["pr4s",`📏 Каналы 100–300 тыс. подписчиков`,`📏 Channels 100K–300K subscribers`],
 ["pr4f1",`Всё из тарифа «Установим вместе»`,`Everything in “Done Together”`],
 ["pr4f2",`Установлю лично — ноль шагов с вашей стороны`,`I install it personally — zero steps for you`],
 ["pr4f3",`От ссылки на канал до готовой кнопки`,`From a channel link to a working button`],
