@@ -1220,8 +1220,10 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.
 })();
 
 // ── живая статистика: stats.json публикует сам бот (v1.7.30) ──
-// Файла нет / бот выключил показ (enabled:false) / сеть легла — блок остаётся
-// спрятанным: пустая секция на витрине хуже, чем её отсутствие.
+// Файла нет / бот выключил показ (enabled:false) / сеть легла / ВСЕ ЦИФРЫ НУЛИ —
+// блок остаётся спрятанным: пустая секция (или «0 каналов») на витрине хуже,
+// чем её отсутствие. Когда появятся реальные подключения и открытия, блок
+// раскроется сам — вручную включать не нужно.
 (function(){
   const wrap=document.getElementById('live');
   if(!wrap)return;
@@ -1229,6 +1231,8 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.
     if(!r.ok)throw 0;return r.json();
   }).then(function(d){
     if(!d||d.enabled===false)throw 0;
+    const o=d.opens||{};
+    if(!((d.ch&&d.ch.ch)||(o.total)||(o.o30)||(o.u30)))throw 0;
     const n=function(v){return String(v||0).replace(/\B(?=(\d{3})+(?!\d))/g,'\u2009');};
     document.getElementById('lvCh').textContent=n(d.ch&&d.ch.ch);
     document.getElementById('lvTot').textContent=n(d.opens&&d.opens.total);
