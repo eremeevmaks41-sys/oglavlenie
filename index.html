@@ -135,6 +135,19 @@ a{color:inherit}
 .stat-num{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:600;white-space:nowrap;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
 .stat-cap{font-size:12.5px;color:var(--dim);font-weight:700;margin-top:4px;line-height:1.35}
 
+/* ── живая статистика (v1.7.30) ─────────────────── */
+.live-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:38px}
+.live-card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--r);
+  padding:28px 22px;text-align:center;box-shadow:var(--shadow-sm);
+  transition:transform .25s ease,box-shadow .25s ease}
+.live-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.live-num{font-family:'Unbounded',sans-serif;font-size:30px;font-weight:600;white-space:nowrap;
+  background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.live-cap{font-size:13px;color:var(--dim);font-weight:700;margin-top:8px;line-height:1.4}
+.live-note{margin-top:18px;text-align:center;font-size:12.5px;color:var(--dim);font-weight:600}
+@media(max-width:900px){.live-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.live-grid{grid-template-columns:1fr}}
+
 /* ── телефон-мокап ───────────────────────────────── */
 .phone-zone{position:relative;display:flex;flex-direction:column;align-items:center}
 .phone{width:320px;border-radius:44px;background:#10182B;border:1px solid var(--stroke2);
@@ -743,6 +756,24 @@ footer{border-top:1px solid var(--stroke);margin-top:90px;padding:36px 0 44px}
   </div>
 </section>
 
+<!-- ═══ ЖИВАЯ СТАТИСТИКА (v1.7.30: цифры публикует бот в stats.json) ═══ -->
+<section class="section" id="live" hidden style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal sec-center">
+      <div class="sec-tag" data-i18n="live_tag">📡 Живая статистика</div>
+      <h2 class="sec-title" data-i18n="live_title">Каталогом уже пользуются</h2>
+      <p class="sec-sub" data-i18n="live_sub">Цифры выгружает сам бот (раз в час): только общие суммы — без имён каналов и каких-либо личных данных.</p>
+    </div>
+    <div class="live-grid reveal">
+      <div class="live-card"><div class="live-num" id="lvCh">—</div><div class="live-cap" data-i18n="live_ch">каналов в обслуживании</div></div>
+      <div class="live-card"><div class="live-num" id="lvTot">—</div><div class="live-cap" data-i18n="live_tot">открытий каталогов всего</div></div>
+      <div class="live-card"><div class="live-num" id="lvO30">—</div><div class="live-cap" data-i18n="live_o30">открытий за 30 дней</div></div>
+      <div class="live-card"><div class="live-num" id="lvU30">—</div><div class="live-cap" data-i18n="live_u30">уникальных гостей за 30 дней</div></div>
+    </div>
+    <p class="live-note reveal" data-i18n="live_note">Счётчик считает только открытия страницы-оглавления — без трекинга личностей: на сервере от браузерного id остаётся лишь обезличенный хвост хэша.</p>
+  </div>
+</section>
+
 <!-- ═══ ТАРИФЫ ═══ -->
 <section class="section" id="pricing" style="padding-top:0">
   <div class="wrap">
@@ -1103,7 +1134,15 @@ const STR=[
 ["foot_de",`Демо EN`,`Demo EN`],
 ["foot_pr",`Тарифы`,`Pricing`],
 ["foot_faq",`FAQ`,`FAQ`],
-["foot_copy",`© 2026 Оглавление · Telegram Mini App · хостинг GitHub Pages`,`© 2026 Oglavlenie · Telegram Mini App · hosted on GitHub Pages`]
+["foot_copy",`© 2026 Оглавление · Telegram Mini App · хостинг GitHub Pages`,`© 2026 Oglavlenie · Telegram Mini App · hosted on GitHub Pages`],
+["live_tag",`📡 Живая статистика`,`📡 Live stats`],
+["live_title",`Каталогом уже пользуются`,`The catalog is already in use`],
+["live_sub",`Цифры выгружает сам бот (раз в час): только общие суммы — без имён каналов и каких-либо личных данных.`,`The numbers are exported by the bot itself (once an hour): totals only — no channel names, no personal data.`],
+["live_ch",`каналов в обслуживании`,`channels under service`],
+["live_tot",`открытий каталогов всего`,`total catalog opens`],
+["live_o30",`открытий за 30 дней`,`opens in the last 30 days`],
+["live_u30",`уникальных гостей за 30 дней`,`unique visitors in 30 days`],
+["live_note",`Счётчик считает только открытия страницы-оглавления — без трекинга личностей: на сервере от браузерного id остаётся лишь обезличенный хвост хэша.`,`The counter only counts table-of-contents page opens — no person tracking: the browser id leaves just an anonymized hash tail on the server.`]
 ];
 const I18N={ru:{},en:{}};
 for(const [k,ru,en] of STR){I18N.ru[k]=ru;I18N.en[k]=en;}
@@ -1178,6 +1217,25 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.
 (function(){
   const t=document.getElementById('marqueeTrack');
   t.innerHTML+=t.innerHTML;
+})();
+
+// ── живая статистика: stats.json публикует сам бот (v1.7.30) ──
+// Файла нет / бот выключил показ (enabled:false) / сеть легла — блок остаётся
+// спрятанным: пустая секция на витрине хуже, чем её отсутствие.
+(function(){
+  const wrap=document.getElementById('live');
+  if(!wrap)return;
+  fetch('stats.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){
+    if(!r.ok)throw 0;return r.json();
+  }).then(function(d){
+    if(!d||d.enabled===false)throw 0;
+    const n=function(v){return String(v||0).replace(/\B(?=(\d{3})+(?!\d))/g,'\u2009');};
+    document.getElementById('lvCh').textContent=n(d.ch&&d.ch.ch);
+    document.getElementById('lvTot').textContent=n(d.opens&&d.opens.total);
+    document.getElementById('lvO30').textContent=n(d.opens&&d.opens.o30);
+    document.getElementById('lvU30').textContent=n(d.opens&&d.opens.u30);
+    wrap.hidden=false;
+  }).catch(function(){wrap.hidden=true;});
 })();
 </script>
 <!-- Attribution: сохраняем источник трафика (fb/ig/yt) во все deeplink-CTA бота + GA4-событие на клик -->
